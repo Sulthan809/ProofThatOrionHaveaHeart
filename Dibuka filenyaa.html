@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My work</title>
+    <style>
+        body {
+            background-color: #ffe6f2;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            color: #4a004d;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 50px;
+            font-size: 2.5em;
+        }
+        p {
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #d5006d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #a4004d;
+        }
+        #message, #imageContainer { /* Gabungkan selector untuk disembunyikan */
+            display: none;
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #d5006d;
+        }
+        #imageContainer img { /* Styling untuk gambar di dalam kontainer */
+            max-width: 100%; /* Agar gambar responsif */
+            height: auto; /* Mempertahankan rasio aspek */
+            border-radius: 10px; /* Opsional: sedikit sudut membulat untuk gambar */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opsional: bayangan pada gambar */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HAI LIZA</h1>
+    <p>Nih bukti aku bener-bener cinta sama kamu</p>
+    <button onclick="showMessageAndImage()">Tampilkan Pesan Cinta</button>
+    <p id="message">I LOVE YOUUU🤍🤍🤍</p>
+    <div id="imageContainer"> <img src=c:\Users\Sultan\Downloads\LizaPict.png width="704.5" height="1000" alt="Liza">
+    </div>
+
+    <script>
+        function showMessageAndImage() {
+            document.getElementById('message').style.display = 'block';
+            document.getElementById('imageContainer').style.display = 'block'; // Tampilkan kontainer gambar
+        }
+    </script>
+
+</body>
+</html>
