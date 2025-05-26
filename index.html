@@ -34,17 +34,41 @@
         button:hover {
             background-color: #a4004d;
         }
-        #message, #imageContainer { /* Gabungkan selector untuk disembunyikan */
+        #message, #imageContainer {
             display: none;
             margin-top: 20px;
             font-size: 1.5em;
             color: #d5006d;
         }
-        #imageContainer img { /* Styling untuk gambar di dalam kontainer */
-            max-width: 100%; /* Agar gambar responsif */
-            height: auto; /* Mempertahankan rasio aspek */
-            border-radius: 10px; /* Opsional: sedikit sudut membulat untuk gambar */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opsional: bayangan pada gambar */
+        #imageContainer img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #hearts-container {
+            position: fixed;
+            left: 0; top: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .heart {
+            position: absolute;
+            font-size: 2em;
+            color: #ff5ca7;
+            opacity: 0.8;
+            animation: floatHearts 1.5s linear forwards;
+            will-change: transform, opacity;
+        }
+        @keyframes floatHearts {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) scale(1.5) rotate(30deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -54,13 +78,31 @@
     <p>Nih bukti aku bener-bener cinta sama kamu</p>
     <button onclick="showMessageAndImage()">Tampilkan Pesan Cinta</button>
     <p id="message">I LOVE YOUUU🤍🤍🤍</p>
-    <div id="imageContainer"> <img src="LizaPict.png" width="704.5" height="1000" alt="Liza Picture">
-    </div>
+    <div id="imageContainer"><img src="LizaPict.png" width="704.5" height="1000" alt="Liza Picture"></div>
+    <div id="hearts-container"></div>
 
     <script>
         function showMessageAndImage() {
             document.getElementById('message').style.display = 'block';
-            document.getElementById('imageContainer').style.display = 'block'; // Tampilkan kontainer gambar
+            document.getElementById('imageContainer').style.display = 'block';
+
+            // Create hearts glitter effect
+            for (let i = 0; i < 30; i++) {
+                setTimeout(createHeart, i * 50);
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💖';
+            heart.style.left = (Math.random() * 100) + 'vw';
+            heart.style.top = (60 + Math.random() * 20) + 'vh';
+            heart.style.fontSize = (1 + Math.random() * 2) + 'em';
+
+            document.getElementById('hearts-container').appendChild(heart);
+
+            heart.addEventListener('animationend', () => heart.remove());
         }
     </script>
 
