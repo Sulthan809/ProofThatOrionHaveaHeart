@@ -22,7 +22,7 @@
             margin: 20px 0;
         }
         
-        /* === STYLE DAN ANIMASI TOMBOL === */
+        /* STYLE DAN ANIMASI TOMBOL (Sudah di-update) */
         button {
             background-color: #d5006d;
             color: white;
@@ -31,18 +31,16 @@
             font-size: 1em;
             border-radius: 5px;
             cursor: pointer;
-            /* Tambahkan 'transform' ke transisi agar animasi klik halus */
             transition: background-color 0.3s, transform 0.1s; 
         }
         button:hover {
             background-color: #a4004d;
         }
-        /* Efek saat tombol ditekan: mengecil sedikit */
         button:active {
             transform: scale(0.98); 
         }
         
-        /* === STYLE DAN ANIMASI POP-UP PESAN DAN GAMBAR === */
+        /* STYLE DAN ANIMASI POP-UP PESAN DAN GAMBAR */
         #message, #imageContainer {
             /* Nilai Awal: Sembunyi, buram, dan kecil */
             display: none; 
@@ -52,11 +50,12 @@
             margin-top: 20px;
             font-size: 1.5em;
             color: #d5006d;
+            
+            /* BARU: Mempersiapkan browser untuk perubahan ini (GPU) */
+            will-change: opacity, transform; 
         }
 
-        /* Class yang ditambahkan JavaScript untuk memicu animasi */
         .show-animated {
-            /* Gabungkan opacity, scale, dan keyframes animasi */
             opacity: 1 !important;
             transform: scale(1) !important;
             animation: popIn 0.5s ease-out forwards;
@@ -75,7 +74,7 @@
                 transform: scale(0.8);
             }
             80% {
-                transform: scale(1.05); /* Sedikit membesar untuk efek 'pop' */
+                transform: scale(1.05); 
             }
             100% {
                 opacity: 1;
@@ -83,7 +82,7 @@
             }
         }
 
-        /* === KODE JANTUNG/HEARTS (TIDAK BERUBAH) === */
+        /* KODE JANTUNG/HEARTS */
         #hearts-container {
             position: fixed;
             left: 0; top: 0; width: 100vw; height: 100vh;
@@ -100,11 +99,11 @@
         }
         @keyframes floatHearts {
             0% {
-                transform: translateY(0) scale(1) rotate(0deg);
+                transform: translateY(0) scale(1) rotate(0deg) translateZ(0); /* GPU acceleration */
                 opacity: 1;
             }
             100% {
-                transform: translateY(-200px) scale(1.5) rotate(30deg);
+                transform: translateY(-200px) scale(1.5) rotate(30deg) translateZ(0); /* GPU acceleration */
                 opacity: 0;
             }
         }
@@ -129,7 +128,7 @@
             messageElement.style.display = 'block';
             imageContainer.style.display = 'block';
 
-            // 2. Beri jeda kecil (10ms) lalu tambahkan class animasi
+            // 2. Beri jeda kecil lalu tambahkan class animasi
             setTimeout(() => {
                 messageElement.classList.add('show-animated');
                 imageContainer.classList.add('show-animated');
