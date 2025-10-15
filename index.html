@@ -22,7 +22,7 @@
             margin: 20px 0;
         }
         
-        /* STYLE DAN ANIMASI TOMBOL (Sudah di-update) */
+        /* STYLE DAN ANIMASI TOMBOL */
         button {
             background-color: #d5006d;
             color: white;
@@ -51,7 +51,6 @@
             font-size: 1.5em;
             color: #d5006d;
             
-            /* BARU: Mempersiapkan browser untuk perubahan ini (GPU) */
             will-change: opacity, transform; 
         }
 
@@ -67,7 +66,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Keyframes untuk efek Pop-In */
         @keyframes popIn {
             0% {
                 opacity: 0;
@@ -80,6 +78,12 @@
                 opacity: 1;
                 transform: scale(1);
             }
+        }
+        
+        /* Keyframes untuk Hide/Fade-Out */
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.8); }
         }
 
         /* KODE JANTUNG/HEARTS */
@@ -99,11 +103,11 @@
         }
         @keyframes floatHearts {
             0% {
-                transform: translateY(0) scale(1) rotate(0deg) translateZ(0); /* GPU acceleration */
+                transform: translateY(0) scale(1) rotate(0deg) translateZ(0); 
                 opacity: 1;
             }
             100% {
-                transform: translateY(-200px) scale(1.5) rotate(30deg) translateZ(0); /* GPU acceleration */
+                transform: translateY(-200px) scale(1.5) rotate(30deg) translateZ(0); 
                 opacity: 0;
             }
         }
@@ -113,34 +117,69 @@
 
     <h1>HAI YASMIN</h1>
     <p>Nih bukti aku bener-bener cinta sama kamu</p>
-    <button onclick="showMessageAndImage()">Tampilkan Pesan Cinta</button>
+    <button id="loveButton" onclick="toggleMessageAndImage()">Tampilkan Pesan Cinta</button> 
+    
     <p id="message">I LOVE YOUUU🤍🤍🤍</p>
     <div id="imageContainer"><img src="YasminPict.png" width="704.5" height="1000" alt="Liza Picture"></div>
     <div id="hearts-container"></div>
 
     <script>
-        /* FUNGSI JAVASCRIPT UNTUK MENGATUR TAMPILAN DAN ANIMASI */
-        function showMessageAndImage() {
+        /* FUNGSI JAVASCRIPT BARU: Menggunakan Toggle (Menampilkan & Menyembunyikan) */
+        function toggleMessageAndImage() {
+            const button = document.getElementById('loveButton');
             const messageElement = document.getElementById('message');
             const imageContainer = document.getElementById('imageContainer');
             
-            // 1. Jadikan elemen terlihat (display: block)
-            messageElement.style.display = 'block';
-            imageContainer.style.display = 'block';
-
-            // 2. Beri jeda kecil lalu tambahkan class animasi
-            setTimeout(() => {
-                messageElement.classList.add('show-animated');
-                imageContainer.classList.add('show-animated');
-            }, 10); 
+            // Cek: Apakah elemen sedang ditampilkan? (dengan class animasi)
+            const isShowing = messageElement.classList.contains('show-animated');
             
-            // Create hearts glitter effect
-            for (let i = 0; i < 30; i++) {
-                setTimeout(createHeart, i * 50);
+            if (isShowing) {
+                // --- FUNGSI SEMBUNYIKAN (HIDE) ---
+                
+                // 1. Tambahkan class fadeOut untuk animasi menyembunyikan
+                messageElement.style.animation = 'fadeOut 0.3s ease-in forwards';
+                imageContainer.style.animation = 'fadeOut 0.3s ease-in forwards';
+                
+                // 2. Hapus class animasi setelah selesai, dan atur display: none
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                    imageContainer.style.display = 'none';
+                    
+                    // Hapus class dan style animasi agar siap untuk popIn lagi
+                    messageElement.classList.remove('show-animated');
+                    imageContainer.classList.remove('show-animated');
+                    messageElement.style.animation = '';
+                    imageContainer.style.animation = '';
+                }, 300); // 300ms, sesuai durasi fadeOut
+                
+                // 3. Ubah teks tombol
+                button.textContent = 'Tampilkan Pesan Cinta';
+                
+            } else {
+                // --- FUNGSI TAMPILKAN (SHOW) ---
+                
+                // 1. Jadikan elemen terlihat
+                messageElement.style.display = 'block';
+                imageContainer.style.display = 'block';
+                
+                // 2. Beri jeda kecil lalu tambahkan class popIn
+                setTimeout(() => {
+                    messageElement.classList.add('show-animated');
+                    imageContainer.classList.add('show-animated');
+                }, 10); 
+                
+                // 3. Ubah teks tombol
+                button.textContent = 'Sembunyikan Pesan Cinta';
+                
+                // Hati hanya muncul saat menampilkan
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(createHeart, i * 50);
+                }
             }
         }
 
         function createHeart() {
+            // ... (Fungsi ini tidak berubah)
             const heart = document.createElement('div');
             heart.className = 'heart';
             heart.innerHTML = '💖';
