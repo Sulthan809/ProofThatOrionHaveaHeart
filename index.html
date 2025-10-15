@@ -21,6 +21,8 @@
             font-size: 1.2em;
             margin: 20px 0;
         }
+        
+        /* === PERUBAHAN UNTUK ANIMASI TOMBOL === */
         button {
             background-color: #d5006d;
             color: white;
@@ -29,16 +31,36 @@
             font-size: 1em;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            /* Update: Tambahkan 'transform 0.1s' untuk animasi klik */
+            transition: background-color 0.3s, transform 0.1s; 
         }
         button:hover {
             background-color: #a4004d;
         }
+        /* BARU: Efek saat tombol ditekan (mengkerut sedikit) */
+        button:active {
+            transform: scale(0.98); 
+        }
+        
+        /* === PERUBAHAN UNTUK ANIMASI POP-UP PESAN DAN GAMBAR === */
         #message, #imageContainer {
-            display: none;
+            /* Perubahan: Atur awal opacity dan scale untuk efek fade/pop */
+            display: none; 
+            opacity: 0; 
+            transform: scale(0.8);
+            
             margin-top: 20px;
             font-size: 1.5em;
             color: #d5006d;
+            
+            /* Jaga-jaga: Tambahkan transisi dasar */
+            transition: opacity 0.5s, transform 0.5s; 
+        }
+        /* BARU: Class yang ditambahkan JavaScript untuk memulai animasi */
+        .show-animated {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+            animation: popIn 0.5s ease-out forwards;
         }
         #imageContainer img {
             max-width: 100%;
@@ -46,6 +68,24 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+        /* === Keyframes Pop-In === */
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            80% {
+                transform: scale(1.05); /* Over-shoot (lebih besar sedikit) */
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        /* ================================================== */
+
+        /* Kode Hati (Tidak Berubah) */
         #hearts-container {
             position: fixed;
             left: 0; top: 0; width: 100vw; height: 100vh;
@@ -82,11 +122,23 @@
     <div id="hearts-container"></div>
 
     <script>
+        /* FUNGSI JAVASCRIPT YANG DIMODIFIKASI */
         function showMessageAndImage() {
-            document.getElementById('message').style.display = 'block';
-            document.getElementById('imageContainer').style.display = 'block';
+            const messageElement = document.getElementById('message');
+            const imageContainer = document.getElementById('imageContainer');
+            
+            // 1. Jadikan elemen terlihat (display: block)
+            messageElement.style.display = 'block';
+            imageContainer.style.display = 'block';
 
-            // Create hearts glitter effect
+            // 2. Beri jeda 10ms (hampir instan) lalu tambahkan class animasi
+            // Ini memastikan browser menjalankan animasi popIn dari awal (opacity: 0)
+            setTimeout(() => {
+                messageElement.classList.add('show-animated');
+                imageContainer.classList.add('show-animated');
+            }, 10); 
+            
+            // Create hearts glitter effect (Kode ini tetap sama)
             for (let i = 0; i < 30; i++) {
                 setTimeout(createHeart, i * 50);
             }
@@ -108,4 +160,3 @@
 
 </body>
 </html>
-
