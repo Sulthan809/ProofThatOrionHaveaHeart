@@ -51,7 +51,7 @@
             font-size: 1.5em;
             color: #d5006d;
             
-            will-change: opacity, transform; 
+            will-change: opacity, transform; /* Perbaikan Mobile */
         }
 
         .show-animated {
@@ -117,40 +117,48 @@
 
     <h1>HAI YASMIN</h1>
     <p>Nih bukti aku bener-bener cinta sama kamu</p>
+    
     <button id="loveButton" onclick="toggleMessageAndImage()">Tampilkan Pesan Cinta</button> 
     
     <p id="message">I LOVE YOUUU🤍🤍🤍</p>
     <div id="imageContainer"><img src="YasminPict.png" width="704.5" height="1000" alt="Liza Picture"></div>
     <div id="hearts-container"></div>
+    
+    <div style="margin-top: 50px; margin-bottom: 50px;">
+        <a href="page2.html">
+            <button style="background-color: #004d4a;">
+                Lihat Puisi (Halaman Berikutnya)
+            </button>
+        </a>
+    </div>
 
     <script>
-        /* FUNGSI JAVASCRIPT BARU: Menggunakan Toggle (Menampilkan & Menyembunyikan) */
+        /* FUNGSI JAVASCRIPT: Menggunakan Toggle (Menampilkan & Menyembunyikan) */
         function toggleMessageAndImage() {
             const button = document.getElementById('loveButton');
             const messageElement = document.getElementById('message');
             const imageContainer = document.getElementById('imageContainer');
             
-            // Cek: Apakah elemen sedang ditampilkan? (dengan class animasi)
+            // Cek: Apakah elemen sedang ditampilkan?
             const isShowing = messageElement.classList.contains('show-animated');
             
             if (isShowing) {
                 // --- FUNGSI SEMBUNYIKAN (HIDE) ---
                 
-                // 1. Tambahkan class fadeOut untuk animasi menyembunyikan
+                // 1. Tambahkan animasi menyembunyikan
                 messageElement.style.animation = 'fadeOut 0.3s ease-in forwards';
                 imageContainer.style.animation = 'fadeOut 0.3s ease-in forwards';
                 
-                // 2. Hapus class animasi setelah selesai, dan atur display: none
+                // 2. Hapus class dan atur display: none setelah animasi selesai
                 setTimeout(() => {
                     messageElement.style.display = 'none';
                     imageContainer.style.display = 'none';
                     
-                    // Hapus class dan style animasi agar siap untuk popIn lagi
                     messageElement.classList.remove('show-animated');
                     imageContainer.classList.remove('show-animated');
                     messageElement.style.animation = '';
                     imageContainer.style.animation = '';
-                }, 300); // 300ms, sesuai durasi fadeOut
+                }, 300); 
                 
                 // 3. Ubah teks tombol
                 button.textContent = 'Tampilkan Pesan Cinta';
@@ -162,7 +170,7 @@
                 messageElement.style.display = 'block';
                 imageContainer.style.display = 'block';
                 
-                // 2. Beri jeda kecil lalu tambahkan class popIn
+                // 2. Tambahkan class popIn
                 setTimeout(() => {
                     messageElement.classList.add('show-animated');
                     imageContainer.classList.add('show-animated');
@@ -179,7 +187,6 @@
         }
 
         function createHeart() {
-            // ... (Fungsi ini tidak berubah)
             const heart = document.createElement('div');
             heart.className = 'heart';
             heart.innerHTML = '💖';
