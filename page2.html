@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puisi untuk Yasmin</title>
+    <style>
+        body {
+            background-color: #f2ffe6;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            color: #004d4a;
+            padding-top: 30px;
+            margin: 0;
+            padding-bottom: 50px;
+        }
+        h1 {
+            font-size: 3em;
+            color: #006d5b;
+            margin-bottom: 40px;
+        }
+        .poem-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .stanzas {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.4em;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: #333;
+            text-align: center; 
+            white-space: pre-wrap; 
+        }
+        .home-button-container {
+            margin-top: 40px;
+        }
+        button {
+            background-color: #006d5b; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #004d3a;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Puisi untukmu, Cintaku</h1>
+
+    <div class="poem-container">
+        <div class="stanzas">
+Amidst a velvet garden, where beauty is
+profound, Blooms Jasmine, elegant and renowned.
+Her fragrance, a sweet and celestial song,
+Filling the air, where dreams belong.
+
+Jasmine, a muse for poets' creation,
+Inspiring verses with deep admiration.
+Her petals, a canvas of purity and grace,
+Whispering tales of love's embrace.
+
+Amidst tranquil gardens, her allure shines,
+Captivating hearts with scented lines.
+Jasmine, a symbol of eternal delight,
+Radiating beauty, both day and night.
+
+May her presence forever bring solace,
+In every season, her essence's embrace.
+Jasmine, a cherished treasure we adore,
+Enchanting souls, forevermore.
+        </div>
+    </div>
+    
+    <audio id="myAudio" src="song.mp3" loop></audio>
+
+    <div class="home-button-container">
+        <a href="index.html">
+            <button>
+                Kembali ke Halaman Awal
+            </button>
+        </a>
+    </div>
+
+    <script>
+        const audio = document.getElementById('myAudio');
+        
+        // Coba putar musik secara otomatis
+        function startMusic() {
+            audio.play().catch(error => {
+                console.log("Autoplay blocked. User interaction required.");
+            });
+        }
+
+        window.onload = startMusic;
+    </script>
+
+</body>
+</html>
